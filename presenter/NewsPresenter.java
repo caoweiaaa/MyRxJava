@@ -1,7 +1,7 @@
 package com.chs.myrxjava.presenter;
 
 import com.chs.myrxjava.model.NewListModel;
-import com.chs.myrxjava.model.bean.NewsBean;
+import com.chs.myrxjava.model.bean.PicBean;
 import com.chs.myrxjava.view.viewinterface.INewView;
 
 import rx.Subscriber;
@@ -18,7 +18,7 @@ public class NewsPresenter {
         this.iNewView = iNewView;
     }
     public void loadData(){
-        newListModel.getNewsList(new Subscriber<NewsBean>() {
+        newListModel.getNewsList(new Subscriber<String>() {
             @Override
             public void onCompleted() {
 
@@ -30,9 +30,9 @@ public class NewsPresenter {
             }
 
             @Override
-            public void onNext(NewsBean newsBean) {
-                iNewView.showInfos(newsBean);
-                if(newsBean==null){
+            public void onNext(String str) {
+                iNewView.showInfos(str);
+                if(str==null){
                     iNewView.noInfos();
                 }
             }

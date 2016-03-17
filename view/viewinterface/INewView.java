@@ -1,8 +1,6 @@
 package com.chs.myrxjava.view.viewinterface;
 
-import com.chs.myrxjava.model.bean.NewsBean;
-
-import java.util.List;
+import com.chs.myrxjava.model.bean.PicBean;
 
 /**
  * 作者：chs on 2016/3/15 14:41
@@ -10,7 +8,7 @@ import java.util.List;
  */
 public interface INewView {
 
-    void showInfos(NewsBean newsBean);
+    void showInfos(String str);
 
     void noInfos();
 }
