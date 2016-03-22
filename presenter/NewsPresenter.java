@@ -1,6 +1,9 @@
 package com.chs.myrxjava.presenter;
 
+import android.util.Log;
+
 import com.chs.myrxjava.model.NewListModel;
+import com.chs.myrxjava.model.bean.DouBean;
 import com.chs.myrxjava.model.bean.PicBean;
 import com.chs.myrxjava.view.viewinterface.INewView;
 
@@ -18,7 +21,29 @@ public class NewsPresenter {
         this.iNewView = iNewView;
     }
     public void loadData(){
-        newListModel.getNewsList(new Subscriber<String>() {
+        newListModel.getNewsList(new Subscriber<DouBean>() {
+            @Override
+            public void onCompleted() {
+                Log.e("NewsPresenter","onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("NewsPresenter","onError");
+            }
+
+            @Override
+            public void onNext(DouBean picBean) {
+                Log.e("NewsPresenter","onNext");
+                iNewView.showInfos(picBean);
+                if(picBean==null){
+                    iNewView.noInfos();
+                }
+            }
+        });
+    }
+    public void loadPic(){
+        newListModel.getPicList(new Subscriber<PicBean>() {
             @Override
             public void onCompleted() {
 
@@ -30,11 +55,8 @@ public class NewsPresenter {
             }
 
             @Override
-            public void onNext(String str) {
-                iNewView.showInfos(str);
-                if(str==null){
-                    iNewView.noInfos();
-                }
+            public void onNext(PicBean picBean) {
+                Log.e("NewsPresenter","onNext");
             }
         });
     }

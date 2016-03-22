@@ -1,11 +1,14 @@
 package com.chs.myrxjava;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chs.myrxjava.model.bean.PicBean;
+import com.chs.myrxjava.model.bean.DouBean;
 import com.chs.myrxjava.presenter.NewsPresenter;
 import com.chs.myrxjava.view.viewinterface.INewView;
 
@@ -18,12 +21,16 @@ public class MainActivity extends AppCompatActivity implements INewView{
     private NewsPresenter newsPresenter;
     private Subscriber<String> subscriber;
     private Action1<String> action1;
+    private TextView tv;
+    private ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         newsPresenter = new NewsPresenter(this);
         newsPresenter.loadData();
+        tv = (TextView) findViewById(R.id.tv);
+        iv = (ImageView) findViewById(R.id.iv);
         initEvent();
 //        subscriber = new Subscriber<String>() {
 //            @Override
@@ -41,12 +48,12 @@ public class MainActivity extends AppCompatActivity implements INewView{
 //                Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
 //            }
 //        };
-      /*  action1 = new Action1<String>() {
+        action1 = new Action1<String>() {
             @Override
             public void call(String s) {
                 Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
             }
-        };*/
+        };
 
     }
 
@@ -71,11 +78,19 @@ public class MainActivity extends AppCompatActivity implements INewView{
                 observable.subscribe(action1);
             }
         });
+
+        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newsPresenter.loadPic();
+            }
+        });
     }
 
     @Override
-    public void showInfos(String newsBean) {
-
+    public void showInfos(DouBean newsBean) {
+        tv.setText(newsBean.getTitle());
+        iv.setImageURI(Uri.parse(newsBean.getSubjects().get(0).getImages().getSmall()));
     }
 
     @Override
