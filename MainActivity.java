@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements INewView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         newsPresenter = new NewsPresenter(this);
-        newsPresenter.loadData();
+//        newsPresenter.loadData();
         tv = (TextView) findViewById(R.id.tv);
         iv = (ImageView) findViewById(R.id.iv);
         initEvent();
